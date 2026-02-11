@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Letterboxd Original</title>
+    <link rel="stylesheet" href="./style.css"> <style>
+        /* This adds the pixel font for that retro vibe */
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        body {
+            font-family: 'Press Start 2P', cursive; /* Pixel font */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            overflow: hidden; /* Stops scrolling */
+        }
+        
+        .gif-container img {
+            width: 200px; /* Adjust size for mobile */
+            border: 4px solid #000;
+            margin-bottom: 20px;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap; /* Helps buttons fit on small screens */
+            justify-content: center;
+        }
+
+        button {
+            font-family: 'Press Start 2P', cursive;
+            padding: 15px 25px;
+            font-size: 14px;
+            cursor: pointer;
+            border: 3px solid #000;
+            box-shadow: 4px 4px 0 #000;
+            transition: 0.1s;
+        }
+
+        #yesBtn { background-color: #4CAF50; color: white; }
+        #noBtn { background-color: #f44336; color: white; }
+    </style>
+</head>
+<body>
+
+    <div class="gif-container">
+        <img id="mainGif" src="header.gif" alt="Cute Gif">
+    </div>
+
+    <h2 id="questionText">Will you be the Shiv to my Tom?</h2>
+
+    <div class="btn-container">
+        <button id="yesBtn" onclick="toggleYes()">YES</button>
+        <button id="noBtn" onclick="toggleNo()">NO</button>
+    </div>
+
+    <script>
+        // STEP 3: The Succession Logic
+        let noCount = 0;
+        
+        // These are the texts that appear when they click 'No'
+        const noTexts = [
+            "No",
+            "Are you sure?",
+            "You are not serious people.", 
+            "I'm the eldest boy!",
+            "Don't be a Colm (Banshees)",
+            "Shiv wouldn't say no..."
+        ];
+
+        function toggleNo() {
+            noCount++;
+            
+            // 1. Change Text
+            const noBtn = document.getElementById("noBtn");
+            noBtn.innerText = noTexts[noCount % noTexts.length];
+
+            // 2. Make Yes Button Bigger (The Mobile Trick)
+            const yesBtn = document.getElementById("yesBtn");
+            let currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            yesBtn.style.fontSize = (currentSize * 1.5) + "px";
+            yesBtn.style.padding = (parseFloat(window.getComputedStyle(yesBtn).padding) * 1.2) + "px";
+
+            // 3. Change Image to Sad Kendall
+            // Make sure 'sad_kendall.gif' is in your folder!
+            document.getElementById("mainGif").src = "sad_kendall.gif";
+            document.getElementById("questionText").innerText = "This is excruciating...";
+        }
+
+        function toggleYes() {
+            // 4. The Success State
+            // Make sure 'success.gif' is in your folder!
+            document.getElementById("mainGif").src = "success.gif";
+            document.getElementById("questionText").innerText = "Logged on Letterboxd: 5 Stars! ⭐️⭐️⭐️⭐️⭐️";
+            document.querySelector(".btn-container").style.display = "none";
+        }
+    </script>
+</body>
+</html>
